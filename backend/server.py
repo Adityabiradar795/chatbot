@@ -1,3 +1,4 @@
+import os
 from typing import Optional, List
 
 from fastapi import FastAPI, Depends, HTTPException
@@ -41,10 +42,20 @@ app = FastAPI(
 # =========================
 # CORS
 # =========================
+# In production, set ALLOWED_ORIGINS in the environment to your deployed
+# frontend URL(s), comma-separated, e.g.:
+#   ALLOWED_ORIGINS=https://your-frontend.vercel.app
+# Falls back to "*" for local development.
+
+_allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "*")
+ALLOWED_ORIGINS = (
+    ["*"] if _allowed_origins_env == "*"
+    else [origin.strip() for origin in _allowed_origins_env.split(",")]
+)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"]

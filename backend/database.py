@@ -21,18 +21,29 @@ load_dotenv(override=True)
 # DATABASE CONFIG
 # =========================
 
-DB_USER = os.getenv("DB_USER", "postgres")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "")
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "5432")
-DB_NAME = os.getenv("DB_NAME", "genai_db1")
+# Render (and most PaaS providers) give you one ready-made connection
+# string via DATABASE_URL. Use it directly if present; otherwise fall
+# back to building one from individual DB_* vars for local development.
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-encoded_password = quote_plus(DB_PASSWORD)
+if not DATABASE_URL:
+    DB_USER = os.getenv("DB_USER", "postgres")
+    DB_PASSWORD = os.getenv("DB_PASSWORD", "")
+    DB_HOST = os.getenv("DB_HOST", "localhost")
+    DB_PORT = os.getenv("DB_PORT", "5432")
+    DB_NAME = os.getenv("DB_NAME", "genai_db1")
 
-DATABASE_URL = (
-    f"postgresql://{DB_USER}:{encoded_password}"
-    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-)
+    encoded_password = quote_plus(DB_PASSWORD)
+
+    DATABASE_URL = (
+        f"postgresql://{DB_USER}:{encoded_password}"
+        f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    )
+
+# Render's DATABASE_URL starts with "postgres://" but SQLAlchemy needs
+# "postgresql://" — normalize it either way.
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 engine = create_engine(DATABASE_URL)
 
