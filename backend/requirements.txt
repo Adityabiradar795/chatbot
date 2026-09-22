@@ -1,0 +1,32 @@
+# --- Web framework ---
+fastapi
+uvicorn[standard]
+
+# --- Database (Postgres + ORM) ---
+sqlalchemy
+psycopg2-binary
+
+# --- Auth ---
+python-jose[cryptography]
+passlib[bcrypt]
+
+# --- LangChain + LLM providers ---
+langchain
+langchain-groq
+
+# OpenAI SDK
+openai
+
+# Groq SDK
+groq
+
+# Google Generative AI (Gemini) SDK
+google-generativeai
+
+# Mistral AI SDK
+mistralai
+
+# Environment variables manage karne ke liye (recommended)
+python-dotenv
+
+sentence-transformers

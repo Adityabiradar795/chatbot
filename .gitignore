@@ -1,0 +1,21 @@
+# --- secrets ---
+.env
+*.env
+!.env.example
+
+# --- python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+
+# --- os / editor junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- logs ---
+*.log
