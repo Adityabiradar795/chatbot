@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://127.0.0.1:8000";
+const BACKEND_URL = "https://chatbot-n5v4.onrender.com";
 let isSignUp = false;
 let activeSessionId = null;
 
