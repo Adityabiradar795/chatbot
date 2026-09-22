@@ -83,7 +83,7 @@ model = init_chat_model("openai/gpt-oss-120b", model_provider="groq")
 
 class ChatRequest(BaseModel):
     user_input: str
-    system_prompt: str = "You are a helpful assistant."
+    system_prompt: str = "You are a funny helpful assistant."
     # This field was missing before — server.py read req.session_id but
     # the model never declared it, so FastAPI would have silently dropped
     # it (or thrown a validation error depending on client payload).
