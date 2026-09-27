@@ -2,21 +2,7 @@
 
 A full-stack AI chatbot platform with a FastAPI backend and a sleek vanilla JS frontend — featuring JWT auth, streaming responses, persistent chat history, and a customizable system prompt.
 
-![Status](https://img.shields.io/badge/status-active-brightgreen)
-![Backend](https://img.shields.io/badge/backend-FastAPI-009688)
-![Frontend](https://img.shields.io/badge/frontend-HTML%2FCSS%2FJS-38bdf8)
-[![Live Demo](https://img.shields.io/badge/demo-live-blueviolet)](https://chatbot-1-rkok.onrender.com/)
-
----
-
-## 📸 Preview
-
-<p align="center">
-  <img src="./assets/screenshot-login.png" alt="Login screen" width="45%">
-  <img src="./assets/screenshot-chat.png" alt="Chat screen" width="45%">
-</p>
-
-> Replace the images above — create an `assets/` folder in your repo, drop your screenshots in there (e.g. `screenshot-login.png`, `screenshot-chat.png`), and the paths above will render automatically on GitHub.
+**Live Demo:** [chatbot-1-rkok.onrender.com](https://chatbot-1-rkok.onrender.com/)
 
 ---
 
@@ -120,7 +106,7 @@ python -m http.server 5500
 ## 🌐 Live Demo
 
 - **Frontend:** [chatbot-1-rkok.onrender.com](https://chatbot-1-rkok.onrender.com/)
-- **Backend:** [https://chatbot-n5v4.onrender.com](https://chatbot-n5v4.onrender.com)
+- **Backend:** [chatbot-n5v4.onrender.com](https://chatbot-n5v4.onrender.com)
 
 > Note: both services are hosted on Render's free tier, so the first request after inactivity may take 30–60s to wake up.
 
