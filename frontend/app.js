@@ -110,7 +110,7 @@ async function loadSessions() {
             const title = document.createElement("span");
             title.className = "history-item-title";
             title.innerText = s.title || "Untitled chat";
-            title.onclick = () => loadSessionMessages(s.id);
+            title.onclick = () => { loadSessionMessages(s.id); closeSidebarOnMobile(); };
 
             const delBtn = document.createElement("button");
             delBtn.className = "history-delete-btn";
@@ -338,10 +338,23 @@ function startNewChat() {
     document.getElementById("chatBox").innerHTML = "";
     appendMessage("New conversation started. How can I help you?", "bot", true);
     document.querySelectorAll(".history-item").forEach(el => el.classList.remove("active"));
+    closeSidebarOnMobile();
 }
 
 function handleKeyPress(e) {
     if (e.key === "Enter") sendMessage();
+}
+
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("open");
+    document.getElementById("sidebarOverlay").classList.toggle("show");
+}
+
+function closeSidebarOnMobile() {
+    if (window.innerWidth <= 768) {
+        document.getElementById("sidebar").classList.remove("open");
+        document.getElementById("sidebarOverlay").classList.remove("show");
+    }
 }
 
 checkAuthStatus();

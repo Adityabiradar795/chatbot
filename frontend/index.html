@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>NEXUS · GenAI Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -241,6 +241,60 @@
   .btn-send:hover{ transform:translateY(-1px); box-shadow:var(--glow); }
   .btn-send:active{ transform:translateY(0); }
   .btn-send:disabled{ opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
+
+  /* ===== mobile menu toggle & overlay (hidden on desktop) ===== */
+  .menu-toggle{
+    display:none; background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--text);
+    width:36px; height:36px; border-radius:9px; cursor:pointer; font-size:1.05rem; flex-shrink:0;
+  }
+  .sidebar-overlay{ display:none; }
+
+  /* ===== MOBILE RESPONSIVE ===== */
+  @media (max-width: 768px){
+    .app{ height:100dvh; }
+    body{ height:100dvh; }
+
+    .menu-toggle{ display:flex; align-items:center; justify-content:center; }
+
+    .sidebar{
+      position:fixed; top:0; left:0; height:100%; z-index:900; width:min(82vw, 300px);
+      transform:translateX(-100%); transition:transform .25s ease;
+      padding-top:calc(20px + env(safe-area-inset-top,0px));
+      padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));
+      box-shadow:8px 0 30px rgba(0,0,0,0.5);
+    }
+    .sidebar.open{ transform:translateX(0); }
+
+    .sidebar-overlay.show{
+      display:block; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:800;
+      backdrop-filter:blur(2px);
+    }
+
+    .chat-header{
+      padding:14px 16px; padding-top:calc(14px + env(safe-area-inset-top,0px));
+    }
+    .chat-header h3{ font-size:0.9rem; }
+    .chat-header .sub{ display:none; }
+
+    .chat-messages{ padding:16px; gap:14px; }
+    .msg-row{ max-width:90%; }
+    .message{ padding:11px 14px; font-size:0.88rem; }
+
+    .chat-input-area{
+      padding:12px; padding-bottom:calc(12px + env(safe-area-inset-bottom,0px)); gap:8px;
+    }
+    .chat-input-area input{ font-size:16px; padding:12px 14px; }
+    .btn-send{ padding:0 16px; }
+
+    .auth-card{ width:90vw; max-width:380px; padding:28px 22px; }
+
+    .blob1,.blob2,.blob3{ filter:blur(60px); }
+  }
+
+  @media (max-width: 420px){
+    .msg-row{ max-width:94%; }
+    .btn-send span.label{ display:none; }
+  }
 </style>
 </head>
 <body>
@@ -275,8 +329,10 @@
     </div>
   </div>
 
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
   <div class="app">
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
       <div class="brand"><div class="orb"></div><span>NEXUS</span></div>
 
       <div class="user-info">
@@ -299,6 +355,7 @@
 
     <div class="chat-container">
       <div class="chat-header">
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
         <div class="live-dot"></div>
         <h3>LangChain + PostgreSQL AI Platform</h3>
         <div class="sub">Groq · llama-3.3-70b</div>
